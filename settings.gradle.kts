@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "PixFlow"
 include(":app")
- 
+include(":ImageFluxLibrary")
