@@ -1,23 +1,24 @@
 package com.sumitkumarpandit.pixflow.models
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sumitkumarpandit.pixflow.network.ApiInterface
-import com.sumitkumarpandit.pixflow.network.RetrofitService
+import com.sumitkumarpandit.pixflow.data.UPictures
+import com.sumitkumarpandit.pixflow.repository.PixFlowRepository
 import kotlinx.coroutines.launch
-import retrofit2.create
 
-class  PixFlowViewModel:ViewModel(){
-    fun fetchData (apiKey:String){
+class PixFlowViewModel(private val repository: PixFlowRepository) : ViewModel() {
+
+    private val _pictures = MutableLiveData<List<UPictures>>()
+    val pictures: LiveData<List<UPictures>> = _pictures
+
+    fun getPictureUrls(apiKey: String, page: Int, perPage: Int) {
         viewModelScope.launch {
             try {
-                val rService = RetrofitService.getInstance().create(ApiInterface::class.java)
-                val response = rService.getPictures(apiKey,1,30)
-                Log.i("INFOP", "fetchData: $response")
-            }
-            catch (ex:Exception){
-                Log.e("ERRORP", "fetchData: $ex", )
+                _pictures.value = repository.getPictureUrlsApi(apiKey,page,perPage)
+            } catch (e: Exception) {
+//                Log.e("", "getPictures: ", )
             }
         }
     }

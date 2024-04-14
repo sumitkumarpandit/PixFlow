@@ -3,6 +3,7 @@ package com.sumitkumarpandit.pixflow.data
 import com.google.gson.annotations.SerializedName
 
 data class UPictures(
+    @SerializedName("id") val id: String,
     @SerializedName("urls") val  urls: URLs
 )
 
