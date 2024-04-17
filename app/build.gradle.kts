@@ -87,8 +87,9 @@ dependencies {
     //Image Caching Library
     implementation(project(":ImageFluxLibrary"))
 
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
