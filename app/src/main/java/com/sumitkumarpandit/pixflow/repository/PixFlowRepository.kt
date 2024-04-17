@@ -11,18 +11,27 @@ import javax.inject.Inject
 
 class PixFlowRepository @Inject constructor(private val apiInterface: ApiInterface) {
 
-    private val _pictures = MutableStateFlow<List<UPictures>>(emptyList())
-    val pictures: StateFlow<List<UPictures>>
+    private val _pictures = MutableStateFlow<ApiResponse>(ApiResponse.Loading)
+    val pictures: StateFlow<ApiResponse>
         get() = _pictures
     private val perPage = 30
     private var page = 1
     suspend fun getPictureUrlsApi(apiKey: String) {
-        val response = apiInterface.getPicturesApiData(apiKey, page, perPage)
-        if (response.isSuccessful && response.body() != null) {
-            val newPics = _pictures.value.toMutableList()
-            newPics.addAll(response.body()!!)
-            _pictures.emit(newPics)
-            page++;
+        try {
+            val response = apiInterface.getPicturesApiData(apiKey, page, perPage)
+            if (response.isSuccessful && response.body() != null) {
+//            val newPics = _pictures.value
+//            newPics.addAll(response.body()!!)
+//            _pictures.emit(newPics)
+                val newPics = response.body()!!
+                _pictures.value = ApiResponse.Success(newPics)
+                page++;
+            } else {
+                _pictures.value =
+                    ApiResponse.Error("Failed to fetch pictures: ${response.message()}")
+            }
+        } catch (e: Exception) {
+            _pictures.value = ApiResponse.Error("Failed to fetch pictures: ${e.message}")
         }
     }
 }

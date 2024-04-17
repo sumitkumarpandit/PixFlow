@@ -18,16 +18,12 @@ import javax.inject.Inject
 class PixFlowViewModel @Inject constructor(private val repository: PixFlowRepository) :
     ViewModel() {
 
-    val pictures: StateFlow<List<UPictures>>
-        get() = repository.pictures
+//    val pictures: StateFlow<List<UPictures>>
+//        get() = repository.pictures
 
+    val pictures: StateFlow<ApiResponse> = repository.pictures
     fun getPictureUrls(apiKey: String) =
         viewModelScope.launch {
-            try {
-                delay(2000)
-                repository.getPictureUrlsApi(apiKey)
-            } catch (e: Exception) {
-                Log.e("MODEL", "getPictureUrls: $e")
-            }
+            repository.getPictureUrlsApi(apiKey)
         }
 }
