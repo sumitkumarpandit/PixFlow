@@ -73,24 +73,21 @@ class MainActivity : ComponentActivity() {
 fun SplashScreen(viewModel: PixFlowViewModel) {
     val context = LocalContext.current
     val pictures by viewModel.pictures.collectAsState()
-//    ImageGrid(viewModel, pictures, context)
+    val picturesResponse by viewModel.picturesResponse.collectAsState()
 
 
-    when (val result = pictures) {
+    when (val result = picturesResponse) {
         is ApiResponse.Loading -> {
             Box(modifier = Modifier.fillMaxSize(1f), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
         }
-        is ApiResponse.Success -> {
-            // Show success UI
-//            Log.e("ERRORP", "SplashScreen: ${result.data}", )
-            ImageGrid(viewModel,result.pictures,context)
-        }
-        is ApiResponse.Error -> {
-            // Show failure UI
-//            Log.e("ERRORP", "SplashScreen: Error", )
 
+        is ApiResponse.Success -> {
+            ImageGrid(viewModel, pictures, context)
+        }
+
+        is ApiResponse.Error -> {
             Text(text = "Error: ${result.message}")
         }
     }
@@ -132,7 +129,8 @@ fun ImageGrid(viewModel: PixFlowViewModel, imageList: List<UPictures>, context: 
 
 @Composable
 fun ImageItem(imageBitmap: ImageBitmap?) {
-    Box(contentAlignment = Alignment.Center,
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier
             .size(120.dp, 180.dp)
             .padding(4.dp)
