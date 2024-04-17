@@ -1,25 +1,33 @@
 package com.sumitkumarpandit.pixflow.models
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sumitkumarpandit.pixflow.data.UPictures
+import com.sumitkumarpandit.pixflow.network.ApiResponse
 import com.sumitkumarpandit.pixflow.repository.PixFlowRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PixFlowViewModel(private val repository: PixFlowRepository) : ViewModel() {
+@HiltViewModel
+class PixFlowViewModel @Inject constructor(private val repository: PixFlowRepository) :
+    ViewModel() {
 
-    private val _pictures = MutableLiveData<List<UPictures>>()
-    val pictures: LiveData<List<UPictures>> = _pictures
+    val pictures: StateFlow<List<UPictures>>
+        get() = repository.pictures
 
-    fun getPictureUrls(apiKey: String, page: Int, perPage: Int) {
+    fun getPictureUrls(apiKey: String) =
         viewModelScope.launch {
             try {
-                _pictures.value = repository.getPictureUrlsApi(apiKey,page,perPage)
+                delay(2000)
+                repository.getPictureUrlsApi(apiKey)
             } catch (e: Exception) {
-//                Log.e("", "getPictures: ", )
+                Log.e("MODEL", "getPictureUrls: $e")
             }
         }
-    }
 }
