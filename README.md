@@ -35,3 +35,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## App Build:
 https://drive.google.com/file/d/112iZEnyUd5dT2Z5He5YaI_Ua9u1V1eV8/view?usp=sharing
+
+## Screenshots:
+[PixFlow_ScreenShots.zip](https://github.com/sumitkumarpandit/PixFlow/files/15052243/PixFlow_ScreenShots.zip)
