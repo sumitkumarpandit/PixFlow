@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PixFlow</string>
+    <string name="confirm">Confirm</string>
+    <string name="enter_api_key">Enter API Key</string>
+    <string name="retry">Retry</string>
+    <string name="limit_exceeded">Limit Exceeded</string>
 </resources>

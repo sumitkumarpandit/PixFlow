@@ -33,7 +33,7 @@ class PixFlowRepository @Inject constructor(private val apiInterface: ApiInterfa
                     ApiResponse.Error(response.code(), response.message())
             }
         } catch (e: Exception) {
-            _picturesResponse.value = ApiResponse.Error(404,"Failed to fetch pictures: ${e.message}")
+            _picturesResponse.value = ApiResponse.Error(500,e.message!!)
         }
     }
 }

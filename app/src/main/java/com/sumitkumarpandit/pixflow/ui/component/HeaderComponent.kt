@@ -29,9 +29,3 @@ fun HeaderComponent() {
         )
     }
 }
-
-@Preview(showSystemUi = true)
-@Composable
-fun PreviewComp() {
-    HeaderComponent()
-}

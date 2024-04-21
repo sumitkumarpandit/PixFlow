@@ -11,8 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+
 @Composable
-fun PixFlowButton(modifier: Modifier, buttonText:String,color: Color,clickable:Boolean, onButtonClick: () -> Unit) {
+fun PixFlowButton(
+    modifier: Modifier,
+    buttonText: String,
+    color: Color,
+    clickable: Boolean,
+    onButtonClick: () -> Unit
+) {
     Button(
         modifier = modifier,
         border = BorderStroke(2.dp, color),

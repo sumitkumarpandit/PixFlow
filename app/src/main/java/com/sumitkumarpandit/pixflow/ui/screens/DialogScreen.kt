@@ -19,10 +19,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sumitkumarpandit.pixflow.R
 import com.sumitkumarpandit.pixflow.ui.component.PixFlowButton
 import com.sumitkumarpandit.pixflow.ui.theme.BluishWhite
 import com.sumitkumarpandit.pixflow.ui.theme.NavyBlue
@@ -42,7 +44,7 @@ fun TextInputDialog(
             onDismissRequest = onDismiss,
             title = {
                 Text(
-                    text = "Enter API Key",
+                    text = stringResource(R.string.enter_api_key),
                     style = MaterialTheme.typography.titleSmall,
                     color = NavyBlue,
                     modifier = Modifier.fillMaxWidth(1f),
@@ -53,7 +55,7 @@ fun TextInputDialog(
                 PixFlowButton(
                     modifier = Modifier
                         .size(110.dp, 50.dp),
-                    "Confirm", SkyBlue, clickable = textFieldValue.text.isNotEmpty()
+                    stringResource(R.string.confirm), SkyBlue, clickable = textFieldValue.text.isNotEmpty()
                 ) {
                     onConfirm(textFieldValue.text)
                     onDismiss()

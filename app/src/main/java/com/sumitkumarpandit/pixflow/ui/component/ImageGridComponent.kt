@@ -27,7 +27,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Composable
-fun ImageGridComponent(viewModel: PixFlowViewModel, imageList: List<UPictures>, context: Context,apiKey: String) {
+fun ImageGridComponent(
+    viewModel: PixFlowViewModel,
+    imageList: List<UPictures>,
+    context: Context,
+    apiKey: String
+) {
     val scrollState = rememberLazyGridState()
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -35,14 +40,12 @@ fun ImageGridComponent(viewModel: PixFlowViewModel, imageList: List<UPictures>, 
         modifier = Modifier.fillMaxSize(),
         state = scrollState
     ) {
-        Log.e("errorp", "ImageGridComponent: $viewModel" )
         items(imageList.size) { idx ->
             val coroutineScope = rememberCoroutineScope()
             var bitmapState by remember { mutableStateOf<Bitmap?>(null) }
 
             LaunchedEffect(coroutineScope) {
                 this.launch {
-                    Log.e("ERRORP", "ImageGridComponent: ${imageList[idx].urls.regular}", )
                     val bitmap =
                         loadBitmap(imageList[idx].urls.regular, context, imageList[idx].id)
                     bitmapState = bitmap
@@ -52,7 +55,6 @@ fun ImageGridComponent(viewModel: PixFlowViewModel, imageList: List<UPictures>, 
             if (idx == imageList.size - 1) {
                 LaunchedEffect(scrollState) {
                     if (idx == scrollState.layoutInfo.totalItemsCount - 1) {
-                        Log.e("TAGAPI", "ImageGridComponent: $apiKey", )
                         viewModel.getPictureUrls(apiKey)
                     }
                 }

@@ -16,13 +16,14 @@ import androidx.compose.ui.platform.LocalContext
 import com.sumitkumarpandit.pixflow.models.PixFlowViewModel
 import com.sumitkumarpandit.pixflow.network.ApiResponse
 import com.sumitkumarpandit.pixflow.ui.component.ImageGridComponent
+import com.sumitkumarpandit.pixflow.util.Constants
 import com.sumitkumarpandit.pixflow.util.SharedPrefManager
 
 @Composable
 fun MainScreen(viewModel: PixFlowViewModel) {
     val context = LocalContext.current
     var apiKey by remember {
-        mutableStateOf(SharedPrefManager.getString(context, "api_key", ""))
+        mutableStateOf(SharedPrefManager.getString(context, Constants.SHARED_PREF_API_KEY, ""))
     }
     var dialogState by remember {
         mutableStateOf(apiKey.isEmpty())
@@ -32,13 +33,11 @@ fun MainScreen(viewModel: PixFlowViewModel) {
             dialogState = false
         }, onConfirm = {
             dialogState = false
-            Log.e("ddf", "onCreate: $it")
             apiKey = it
-            SharedPrefManager.saveString(context, "api_key", it)
+            SharedPrefManager.saveString(context, Constants.SHARED_PREF_API_KEY, it)
         })
     } else {
         viewModel.getPictureUrls(apiKey)
-        Log.e("wwe", "onCreate: $apiKey")
         val pictures by viewModel.pictures.collectAsState()
         val picturesResponse by viewModel.picturesResponse.collectAsState()
 
@@ -54,16 +53,15 @@ fun MainScreen(viewModel: PixFlowViewModel) {
             }
 
             is ApiResponse.Success -> {
-                Log.e("ssd", "onCreate: $pictures")
+                Log.i("SUCCESS", "Api Success: $pictures")
                 ImageGridComponent(viewModel, pictures, context, apiKey)
             }
 
             is ApiResponse.Error -> {
+                Log.e("ERROR", "Api Error: ${result.message}")
                 ApiErrorScreen(result.code) {
                     dialogState = true
                 }
-                Log.e("ERROR", "Api Error: ${result.message}")
-
             }
         }
     }
