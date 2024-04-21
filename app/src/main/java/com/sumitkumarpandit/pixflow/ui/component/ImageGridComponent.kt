@@ -1,4 +1,4 @@
-package com.sumitkumarpandit.pixflow
+package com.sumitkumarpandit.pixflow.ui.component
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Composable
-fun ImageGridComponent(viewModel: PixFlowViewModel, imageList: List<UPictures>, context: Context) {
+fun ImageGridComponent(viewModel: PixFlowViewModel, imageList: List<UPictures>, context: Context,apiKey: String) {
     val scrollState = rememberLazyGridState()
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -52,7 +52,8 @@ fun ImageGridComponent(viewModel: PixFlowViewModel, imageList: List<UPictures>, 
             if (idx == imageList.size - 1) {
                 LaunchedEffect(scrollState) {
                     if (idx == scrollState.layoutInfo.totalItemsCount - 1) {
-                        viewModel.getPictureUrls(BuildConfig.API_KEY)
+                        Log.e("TAGAPI", "ImageGridComponent: $apiKey", )
+                        viewModel.getPictureUrls(apiKey)
                     }
                 }
             }

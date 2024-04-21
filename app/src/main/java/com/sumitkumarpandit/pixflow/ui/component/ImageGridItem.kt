@@ -1,4 +1,4 @@
-package com.sumitkumarpandit.pixflow
+package com.sumitkumarpandit.pixflow.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
