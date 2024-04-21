@@ -1,4 +1,4 @@
-package com.sumitkumarpandit.pixflow
+package com.sumitkumarpandit.pixflow.ui.component
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
