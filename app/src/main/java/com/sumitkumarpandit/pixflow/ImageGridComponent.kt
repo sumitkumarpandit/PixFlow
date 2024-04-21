@@ -2,6 +2,7 @@ package com.sumitkumarpandit.pixflow
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -26,7 +27,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Composable
-fun ImageGrid(viewModel: PixFlowViewModel, imageList: List<UPictures>, context: Context) {
+fun ImageGridComponent(viewModel: PixFlowViewModel, imageList: List<UPictures>, context: Context) {
     val scrollState = rememberLazyGridState()
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -34,12 +35,14 @@ fun ImageGrid(viewModel: PixFlowViewModel, imageList: List<UPictures>, context: 
         modifier = Modifier.fillMaxSize(),
         state = scrollState
     ) {
+        Log.e("errorp", "ImageGridComponent: $viewModel" )
         items(imageList.size) { idx ->
             val coroutineScope = rememberCoroutineScope()
             var bitmapState by remember { mutableStateOf<Bitmap?>(null) }
 
             LaunchedEffect(coroutineScope) {
                 this.launch {
+                    Log.e("ERRORP", "ImageGridComponent: ${imageList[idx].urls.regular}", )
                     val bitmap =
                         loadBitmap(imageList[idx].urls.regular, context, imageList[idx].id)
                     bitmapState = bitmap

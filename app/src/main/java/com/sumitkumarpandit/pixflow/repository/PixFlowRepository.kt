@@ -1,7 +1,5 @@
 package com.sumitkumarpandit.pixflow.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.sumitkumarpandit.pixflow.data.UPictures
 import com.sumitkumarpandit.pixflow.network.ApiInterface
 import com.sumitkumarpandit.pixflow.network.ApiResponse
@@ -29,7 +27,7 @@ class PixFlowRepository @Inject constructor(private val apiInterface: ApiInterfa
                 newPics.addAll(response.body()!!)
                 _pictures.emit(newPics)
                 _picturesResponse.value = ApiResponse.Success(newPics)
-                page++;
+                page++
             } else {
                 _picturesResponse.value =
                     ApiResponse.Error("Failed to fetch pictures: ${response.message()}")
