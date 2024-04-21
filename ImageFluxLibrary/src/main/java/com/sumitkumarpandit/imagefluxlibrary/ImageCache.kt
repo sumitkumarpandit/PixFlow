@@ -12,7 +12,7 @@ object ImageCache {
 
     // saving the image in internal storage
     fun storeBitmap(bitmap: Bitmap, context: Context, fileName: String) {
-        val directory = File(context.filesDir, "CACHE_DIRECTORY")
+        val directory = File(context.filesDir, CACHE_DIRECTORY)
         if (!directory.exists()) {
             directory.mkdirs() // Create the directory if it doesn't exist
         }
@@ -24,7 +24,7 @@ object ImageCache {
 
     // loading the cached image from internal storage
     fun loadBitmap(context: Context, fileName: String): Bitmap? {
-        val file = File(context.filesDir, "CACHE_DIRECTORY/$fileName")
+        val file = File(context.filesDir, "$CACHE_DIRECTORY/$fileName")
         return if (file.exists()) {
             BitmapFactory.decodeFile(file.absolutePath)
         } else {
